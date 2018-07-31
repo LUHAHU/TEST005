@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	tools:context="com.megatronus.ui.MainActivity">
+
+	<android.support.v7.widget.Toolbar
+		android:id="@+id/tb_header"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="?attr/colorPrimary"
+		android:minHeight="?attr/actionBarSize"
+		app:navigationIcon="@drawable/ic_launcher"
+		app:titleMarginStart="30dp"
+		android:elevation="10dp">
+
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:paddingLeft="10dp"
+			android:paddingRight="10dp">
+
+			<TextView
+				android:id="@+id/main_setting"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignParentEnd="true"
+				android:layout_alignParentTop="true"
+				android:text="OPEN"
+				android:textColor="@color/main_gold"
+				android:textSize="24sp"/>
+
+		</RelativeLayout>
+
+	</android.support.v7.widget.Toolbar>
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:padding="10dp">
+
+		<ImageButton
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_height="55dp"
+			android:layout_width="55dp"
+			android:src="@drawable/screenxx"
+			android:id="@+id/ScreenSizeBtn"
+			android:scaleType="fitCenter"/>
+
+		<SeekBar
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:id="@+id/ScreenSizeSeekBar"
+			android:layout_toRightOf="@id/ScreenSizeBtn"
+			android:layout_alignBottom="@id/ScreenSizeBtn"
+			android:layout_marginBottom="5dp"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:text="1080x1920"
+			android:gravity="center"
+			android:id="@+id/ResolutionText"
+			android:textColor="#000000"
+			android:layout_toRightOf="@id/ScreenSizeBtn"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_alignTop="@id/ScreenSizeBtn"/>
+
+		<ImageButton
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_height="55dp"
+			android:src="@drawable/screenxx"
+			android:layout_below="@id/ScreenSizeBtn"
+			android:layout_width="55dp"
+			android:id="@+id/screenDpiBtn"
+			android:scaleType="fitCenter"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:text="480"
+			android:layout_toRightOf="@id/screenDpiBtn"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_alignTop="@id/screenDpiBtn"
+			android:gravity="center"
+			android:textColor="#000000"
+			android:id="@+id/screenDpiText"/>
+
+		<SeekBar
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:layout_toRightOf="@id/screenDpiBtn"
+			android:layout_alignBottom="@id/screenDpiBtn"
+			android:layout_marginBottom="5dp"
+			android:id="@+id/screenDpiSeekBar"/>
+
+	</RelativeLayout>
+
+</LinearLayout>
+
