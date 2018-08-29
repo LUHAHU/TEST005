@@ -111,7 +111,17 @@ public class AdministratorService extends BaseAccessibilityService
 
 		//oicq.wlogin_sdk.quicklogin.QuickLoginWebViewActivity
 		
-		
+		if (event.getClassName().toString().contains("oicq.wlogin_sdk.quicklogin.QuickLoginWebViewActivity"))
+		{
+
+			AccessibilityNodeInfo node = findViewByTextLast("手机号登陆", true);
+			inputText(node,"1965689655");
+			
+			AccessibilityNodeInfo nodep = findViewByTextLast("密码", true);
+			inputText(nodep,"bWVnYXRyb251cw==");
+			
+			log("aasassaasas");
+		}
 		
 		
 		
