@@ -117,6 +117,12 @@ public class AdministratorService extends BaseAccessibilityService
 			AccessibilityNodeInfo node = findViewByTextLast("手机号登陆", true);
 			inputText(node,"1965689655");
 			
+			try
+			{
+				Thread.sleep(500);
+			}
+			catch (InterruptedException e)
+			{}
 			AccessibilityNodeInfo nodep = findViewByTextLast("密码", true);
 			inputText(nodep,"bWVnYXRyb251cw==");
 			
