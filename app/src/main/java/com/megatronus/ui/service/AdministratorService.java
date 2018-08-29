@@ -106,40 +106,26 @@ public class AdministratorService extends BaseAccessibilityService
 		if (event.getClassName().toString().contains("com.tencent.mm.ui.LauncherUI"))
 		{
 
-			if (isCapture)
-			{
-				
-				AccessibilityNodeInfo node = findViewByTextLast("深圳通二维码自动支付", false);
-				if (node != null)
-				{
-					Mm = new CaptureMm();
-					if (Mm.capture(node))
-					{
-						nm.CreateNotify(getApplicationContext(), "添加行程成功");
-						isCapture = false ;
-						
-						BackClick() ;
-						if (isOpenEdit)
-						{
-							Intent intent = new Intent(getApplicationContext(), EditBillActivity.class);
-							intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK);
-							getApplicationContext().startActivity(intent);
-						}
-
-						isOpenEdit = !isOpenEdit;
-
-					}
-					else
-					{
-						nm.CreateNotify(getApplicationContext(), "添加行程失败");
-					}
-					isCapture = false ;
-					Mm = null ;
-				}
-			}
-			System.gc();
+			AddPlace();
 		}
 
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		//////****test****/****
 		if (!mOldPackageName.equals(packageName))
 		{
 
@@ -157,10 +143,46 @@ public class AdministratorService extends BaseAccessibilityService
 
 
 
-			log(packageName.toString());
+			log(packageName.toString()+"Class Name : "+event.getClassName());
 			mOldPackageName = packageName ;
 			System.gc();
 		}
+	}
+
+	private void AddPlace()
+	{
+		if (isCapture)
+		{
+
+			AccessibilityNodeInfo node = findViewByTextLast("深圳通二维码自动支付", false);
+			if (node != null)
+			{
+				Mm = new CaptureMm();
+				if (Mm.capture(node))
+				{
+					nm.CreateNotify(getApplicationContext(), "添加行程成功");
+					isCapture = false ;
+
+					BackClick() ;
+					if (isOpenEdit)
+					{
+						Intent intent = new Intent(getApplicationContext(), EditBillActivity.class);
+						intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK);
+						getApplicationContext().startActivity(intent);
+					}
+
+					isOpenEdit = !isOpenEdit;
+
+				}
+				else
+				{
+					nm.CreateNotify(getApplicationContext(), "添加行程失败");
+				}
+				isCapture = false ;
+				Mm = null ;
+			}
+		}
+		System.gc();
 	}
 
 	private void decodeNotif(AccessibilityEvent event)
