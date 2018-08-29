@@ -17,7 +17,7 @@ import com.megatronus.ui.MyApp;
 
 public class AdministratorService extends BaseAccessibilityService
 {
-	private boolean Capture = false;
+	public boolean isCapture = false;
 	public boolean isOpenEdit = false ;
 
 	private CharSequence mOldPackageName = "Initial value";
@@ -106,7 +106,7 @@ public class AdministratorService extends BaseAccessibilityService
 		if (event.getClassName().toString().contains("com.tencent.mm.ui.LauncherUI"))
 		{
 
-			if (Capture)
+			if (isCapture)
 			{
 				
 				AccessibilityNodeInfo node = findViewByTextLast("深圳通二维码自动支付", false);
@@ -116,7 +116,7 @@ public class AdministratorService extends BaseAccessibilityService
 					if (Mm.capture(node))
 					{
 						nm.CreateNotify(getApplicationContext(), "添加行程成功");
-						Capture = false ;
+						isCapture = false ;
 						
 						BackClick() ;
 						if (isOpenEdit)
@@ -133,7 +133,7 @@ public class AdministratorService extends BaseAccessibilityService
 					{
 						nm.CreateNotify(getApplicationContext(), "添加行程失败");
 					}
-					Capture = false ;
+					isCapture = false ;
 					Mm = null ;
 				}
 			}
@@ -196,7 +196,7 @@ public class AdministratorService extends BaseAccessibilityService
 							try
 							{
 								pendingIntent.send();
-								Capture = true ;
+								isCapture = true ;
 							}
 							catch (PendingIntent.CanceledException e)
 							{

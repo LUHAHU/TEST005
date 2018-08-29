@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.megatronus.ui.utils.sudo;
 import com.megatronus.ui.service.AdministratorService;
 import android.provider.Settings;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,SeekBar.OnSeekBarChangeListener,View.OnLongClickListener
 {
@@ -92,6 +93,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	@Override
 	public boolean onLongClick(View p1)
 	{
+		if(((MyApp)getApplication()).isInit){
+			((MyApp)getApplication()).Administrator.isCapture = true ;
+			finish();
+		}else{
+			Toast.makeText(this, "failure!", 0).show();
+		}
 		goAccess();
 		return false;
 	}

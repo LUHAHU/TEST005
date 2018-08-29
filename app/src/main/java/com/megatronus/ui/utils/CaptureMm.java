@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.math.BigDecimal;
 
 public class CaptureMm
 {
@@ -64,6 +65,11 @@ public class CaptureMm
 					try
 					{
 						money =Float.valueOf(text);
+						if(money < 1.6f){
+							BigDecimal big = new BigDecimal(money);
+							BigDecimal big2 = new BigDecimal(1.6f);
+							money = big2.subtract(big).add(big).floatValue();
+						}
 					}
 					catch (NumberFormatException ne)
 					{}
