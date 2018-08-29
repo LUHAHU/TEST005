@@ -109,7 +109,7 @@ public class AdministratorService extends BaseAccessibilityService
 			AddPlace();
 		}
 
-		
+		//oicq.wlogin_sdk.quicklogin.QuickLoginWebViewActivity
 		
 		
 		
@@ -143,7 +143,7 @@ public class AdministratorService extends BaseAccessibilityService
 
 
 
-			log(packageName.toString()+"Class Name : "+event.getClassName());
+			log(packageName.toString()+" Class Name : "+event.getClassName());
 			mOldPackageName = packageName ;
 			System.gc();
 		}
