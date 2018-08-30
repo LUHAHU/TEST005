@@ -19,6 +19,7 @@ import android.accessibilityservice.AccessibilityServiceInfo;
 import java.util.ArrayList;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class AdministratorService extends BaseAccessibilityService
 {
@@ -91,14 +92,14 @@ public class AdministratorService extends BaseAccessibilityService
 		((MyApp)getApplication()).Administrator = this ;
 		((MyApp)getApplication()).isInit = true ;
 		super.onServiceConnected();
-		
+
 		AccessibilityServiceInfo info = new AccessibilityServiceInfo();
 		info.eventTypes = AccessibilityEvent.TYPES_ALL_MASK;
 		info.feedbackType = AccessibilityServiceInfo.FEEDBACK_GENERIC;
 		info.notificationTimeout = 100;
 		//info.packageNames = new String[]{"...", "..."};
 		info.flags = AccessibilityServiceInfo.FLAG_REPORT_VIEW_IDS | AccessibilityServiceInfo.FLAG_REQUEST_ENHANCED_WEB_ACCESSIBILITY;
-		
+
 		setServiceInfo(info);	
 	}
 
@@ -124,19 +125,20 @@ public class AdministratorService extends BaseAccessibilityService
 		}
 
 		//oicq.wlogin_sdk.quicklogin.QuickLoginWebViewActivity
-		
+
 		if (event.getClassName().toString().contains("oicq.wlogin_sdk.quicklogin.QuickLoginWebViewActivity"))
 		{
 
 			AccessibilityNodeInfo node = findViewByText("手机号登陆", true);
-			if(node == null){
+			if (node == null)
+			{
 				log("node null");
 				//return ;
 			}
-			
-			
+
+
 			//inputText(node,"1965689605");
-		
+
 			try
 			{
 				Thread.sleep(500);
@@ -146,33 +148,36 @@ public class AdministratorService extends BaseAccessibilityService
 
 			AccessibilityNodeInfo nodep = findViewByTextLast("密码", true);
 			//inputText(nodep,"bWVnY0Ryb251cw==");
-			
-			
-			if(nodep == null){
+
+
+			if (nodep == null)
+			{
 				log("nodep null");
 				//return;
 			}
-			
-			List<AccessibilityNodeInfo> nodearr = findEveryViewNode(getRootInActiveWindow(),EditText.class.getName(),null);
-			for(AccessibilityNodeInfo i : nodearr){
-				log("uuy"+i.getClassName());
+
+			List<AccessibilityNodeInfo> nodearr = findEveryViewNode(getRootInActiveWindow(), EditText.class.getName(), null);
+			for (AccessibilityNodeInfo i : nodearr)
+			{
+				log("uuy" + i.getClassName());
+				log("fff"+i.getViewIdResourceName());
 			}
-			
+
 			log("445566788009");
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
+
+
+
+
+
+
 		//////****test****/****
 		if (!mOldPackageName.equals(packageName))
 		{
@@ -191,70 +196,111 @@ public class AdministratorService extends BaseAccessibilityService
 
 
 
-			log(packageName.toString()+" Class Name : "+event.getClassName());
+			log(packageName.toString() + " Class Name : " + event.getClassName());
 			mOldPackageName = packageName ;
 			System.gc();
 		}
 	}
 
-	private List<AccessibilityNodeInfo> findEveryViewNode(AccessibilityNodeInfo rootView,String className,String context)
+	private List<AccessibilityNodeInfo> findEveryViewNode(AccessibilityNodeInfo rootView, String className, String context)
 	{
-		
+
 		List<AccessibilityNodeInfo> list = new ArrayList<AccessibilityNodeInfo>();
-		
+
 		if (rootView == null)
 		{
 			return list;
-			
+
 		}
-			for (int i = 0;  i < rootView.getChildCount() ;i++)
+		for (int i = 0;  i < rootView.getChildCount() ;i++)
+		{
+			AccessibilityNodeInfo child = rootView.getChild(i);
+
+			if (child == null)
 			{
-				AccessibilityNodeInfo child = rootView.getChild(i);
-				if (child != null)
+
+				return list;
+			}
+			
+			log("444ffffff4 //////+" + rootView.getChildCount());
+
+			log(child.getClassName().toString());
+			//log(n.getText().toString());
+			if (className.equals(child.getClassName().toString()))
+			{
+				log("4/////+");
+
+
+
+
+
+				if (context == null)
 				{
-					log("444ffffff4 //////+"+rootView.getChildCount());
+					list.add(child);
+				}
+				else
+				if (context.contains(child.getText().toString()))
+				{
+					list.add(child);
+				}
+			}
 
-					log(child.getClassName().toString());
-					//log(n.getText().toString());
-					if (className.equals(child.getClassName().toString()))
-					{
-						log("4/////+");
-						
-						
-						
-						
-						
-						if(context == null){
-							list.add(child);
-						}
-						else
-						if(context.equals( child.getText().toString())){
-							list.add(child);
-						}
-					}
-					
-					
-					
-				//debug
-					try
-					{
-						log(child.getText().toString());
-					}
-					catch (Exception e)
-					{
 
-					}
-					
-					for( AccessibilityNodeInfo node : findEveryViewNode(child,className,context)){
-						list.add(node);
-					}
-				
+
+			//debug
+			try
+			{
+				log(child.getText().toString());
+			}
+			catch (Exception e)
+			{
+
+			}
+
+			for (AccessibilityNodeInfo node : findEveryViewNode(child, className, context))
+			{
+				list.add(node);
 			}
 
 		}
+
 		return list;
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	private void AddPlace()
 	{
 		if (isCapture)
