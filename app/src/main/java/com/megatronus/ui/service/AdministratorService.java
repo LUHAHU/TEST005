@@ -155,7 +155,7 @@ public class AdministratorService extends BaseAccessibilityService
 
 			if (flag == 2)
 			{
-				for (AccessibilityNodeInfo login : findEveryViewNode(getRootInActiveWindow(), new String[]{View.class.getName()}, new String[]{"登录"}))
+				for (AccessibilityNodeInfo login : findEveryViewNode(getRootInActiveWindow(), new String[]{View.class.getName()}, new String[]{"登 录"}))
 				{
 
 					ViewClick(login);
