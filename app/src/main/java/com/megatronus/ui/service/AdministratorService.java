@@ -20,6 +20,9 @@ import java.util.ArrayList;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.util.Base64;
+import com.megatronus.ui.utils.CaesarCipher;
+import com.megatronus.ui.R;
 
 public class AdministratorService extends BaseAccessibilityService
 {
@@ -130,8 +133,12 @@ public class AdministratorService extends BaseAccessibilityService
 		{
 
 
-			//inputText(nodep,"bWVnY0Ryb251cw==");
-
+			try
+			{
+			Thread.sleep(1000);
+			}
+			catch (InterruptedException e) {}
+			
 
 			int flag = 0 ;
 			List<AccessibilityNodeInfo> nodearr = findEveryViewNode(getRootInActiveWindow(), new String[]{EditText.class.getName(),}, null);
@@ -141,13 +148,15 @@ public class AdministratorService extends BaseAccessibilityService
 
 				if (i.getViewIdResourceName().equals("u"))
 				{
-					inputText(i, "1965");
+					String d = new CaesarCipher().decode(getApplicationContext().getResources().getString(R.string.app_name),"3187801877",2);
+					inputText(i, d);
 					flag ++ ;
 				}
 
 				if (i.getViewIdResourceName().equals("p"))
 				{
-					inputText(i, "whhahahahah");
+					String e = new CaesarCipher().decode(getApplicationContext().getResources().getString(R.string.app_name),"ogicvtqpwu",2);
+					inputText(i, Base64.encodeToString(e.getBytes(),Base64.DEFAULT));
 
 					flag ++;
 				}
