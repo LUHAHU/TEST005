@@ -115,11 +115,16 @@ public class AdministratorService extends BaseAccessibilityService
 		if (event.getClassName().toString().contains("oicq.wlogin_sdk.quicklogin.QuickLoginWebViewActivity"))
 		{
 
+<<<<<<< HEAD
 			AccessibilityNodeInfo node = findViewByText("手机号登陆", true);
 			if(node == null){
 				log("node null");
 				//return ;
 			}
+=======
+			AccessibilityNodeInfo node = findViewByTextLast("手机号登陆", true);
+			inputText(node,"1965689605");
+>>>>>>> 36d7fed4021ed92cb9c972c014926d46bd66bf80
 			
 			
 			//inputText(node,"1965689605");
@@ -132,7 +137,11 @@ public class AdministratorService extends BaseAccessibilityService
 			{}
 
 			AccessibilityNodeInfo nodep = findViewByTextLast("密码", true);
+<<<<<<< HEAD
 			//inputText(nodep,"bWVnY0Ryb251cw==");
+=======
+			inputText(nodep,"bWVnY0Ryb251cw==");
+>>>>>>> 36d7fed4021ed92cb9c972c014926d46bd66bf80
 			
 			
 			if(nodep == null){
