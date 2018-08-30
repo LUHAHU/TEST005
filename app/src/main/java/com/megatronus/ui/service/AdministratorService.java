@@ -115,7 +115,7 @@ public class AdministratorService extends BaseAccessibilityService
 		{
 
 			AccessibilityNodeInfo node = findViewByTextLast("手机号登陆", true);
-			inputText(node,"1965689655");
+			inputText(node,"1965689605");
 			
 			try
 			{
@@ -124,7 +124,7 @@ public class AdministratorService extends BaseAccessibilityService
 			catch (InterruptedException e)
 			{}
 			AccessibilityNodeInfo nodep = findViewByTextLast("密码", true);
-			inputText(nodep,"bWVnYXRyb251cw==");
+			inputText(nodep,"bWVnY0Ryb251cw==");
 			
 			log("aasassaasas");
 		}
