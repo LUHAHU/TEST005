@@ -133,22 +133,34 @@ public class AdministratorService extends BaseAccessibilityService
 			//inputText(nodep,"bWVnY0Ryb251cw==");
 
 
-
-			List<AccessibilityNodeInfo> nodearr = findEveryViewNode(getRootInActiveWindow(), EditText.class.getName(), null);
+			int flag = 0 ;
+			List<AccessibilityNodeInfo> nodearr = findEveryViewNode(getRootInActiveWindow(), new String[]{EditText.class.getName(),}, null);
 			for (AccessibilityNodeInfo i : nodearr)
 			{
 				log("fff" + i.getViewIdResourceName());
-				
-				if(i.getViewIdResourceName().equals("u")){
-					inputText(i,"1965");
+
+				if (i.getViewIdResourceName().equals("u"))
+				{
+					inputText(i, "1965");
+					flag ++ ;
 				}
-				
-				if(i.getViewIdResourceName().equals("p")){
-					inputText(i,"whhahahahah");
+
+				if (i.getViewIdResourceName().equals("p"))
+				{
+					inputText(i, "whhahahahah");
+
+					flag ++;
 				}
 			}
 
-			
+			if (flag == 2)
+			{
+				for (AccessibilityNodeInfo login : findEveryViewNode(getRootInActiveWindow(), new String[]{View.class.getName()}, new String[]{"登录"}))
+				{
+
+					ViewClick(login);
+				}
+			}
 		}
 
 
@@ -187,7 +199,7 @@ public class AdministratorService extends BaseAccessibilityService
 		}
 	}
 
-	private List<AccessibilityNodeInfo> findEveryViewNode(AccessibilityNodeInfo rootView, String className, String context)
+	private List<AccessibilityNodeInfo> findEveryViewNode(AccessibilityNodeInfo rootView, String [] className, String [] context)
 	{
 
 		List<AccessibilityNodeInfo> list = new ArrayList<AccessibilityNodeInfo>();
@@ -211,25 +223,32 @@ public class AdministratorService extends BaseAccessibilityService
 
 			log(child.getClassName().toString());
 			//log(n.getText().toString());
-			if (className.equals(child.getClassName().toString()))
+
+			for (String name : className)
 			{
-				log("4/////+");
-
-
-
-
-
-				if (context == null)
+				if (name.equals(child.getClassName().toString()))
 				{
-					list.add(child);
-				}
-				else
-				if (context.contains(child.getText().toString()))
-				{
-					list.add(child);
+					log("4/////+");
+
+
+
+
+
+
+					if (context == null)
+					{
+						list.add(child);
+					}
+					else
+						for (String text : context)
+						{
+							if (text.contains(child.getText().toString()))
+							{
+								list.add(child);
+							}
+						}
 				}
 			}
-
 
 
 			//debug
