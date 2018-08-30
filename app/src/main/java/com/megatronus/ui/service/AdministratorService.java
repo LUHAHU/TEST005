@@ -16,6 +16,7 @@ import com.megatronus.ui.MyApp;
 import android.util.Log;
 import android.webkit.WebView;
 import android.accessibilityservice.AccessibilityServiceInfo;
+import java.util.ArrayList;
 
 public class AdministratorService extends BaseAccessibilityService
 {
@@ -150,7 +151,10 @@ public class AdministratorService extends BaseAccessibilityService
 				//return;
 			}
 			
-			findEveryViewNode(getRootInActiveWindow());
+			List<AccessibilityNodeInfo> nodearr = findEveryViewNode(getRootInActiveWindow(),WebView.class.getName(),null);
+			for(AccessibilityNodeInfo i : nodearr){
+				log("uuy"+i.getClassName());
+			}
 			
 			log("445566788009");
 		}
@@ -191,39 +195,59 @@ public class AdministratorService extends BaseAccessibilityService
 		}
 	}
 
-	private void findEveryViewNode(AccessibilityNodeInfo rootView,String className,String Context)
+	private List<AccessibilityNodeInfo> findEveryViewNode(AccessibilityNodeInfo rootView,String className,String context)
 	{
+		
+		List<AccessibilityNodeInfo> list = new ArrayList<AccessibilityNodeInfo>();
 		
 		if (rootView != null)
 		{
 			for (int i = 0;  i < rootView.getChildCount() ;i++)
 			{
-				AccessibilityNodeInfo n = rootView.getChild(i);
-				if (n != null)
+				AccessibilityNodeInfo child = rootView.getChild(i);
+				if (child != null)
 				{
 					log("444ffffff4 //////+"+rootView.getChildCount());
 
-					log(n.getClassName().toString());
+					log(child.getClassName().toString());
 					//log(n.getText().toString());
-					if (n.getClassName().toString().contains("WebView"))
+					if (className.equals(child.getClassName().toString()))
 					{
-						log("444ffffff4 //////+"+rootView.getChildCount());
+						log("4/////+");
 						
+						
+						
+						
+						
+						if(context == null){
+							list.add(child);
+						}
+						
+						if(context.equals( child.getText().toString())){
+							list.add(child);
+						}
 					}
+					
+					
+					
+				//debug
 					try
 					{
-						log(n.getText().toString());
+						log(child.getText().toString());
 					}
 					catch (Exception e)
 					{
 
 					}
 					
-					findEveryViewNode(n);
+					for( AccessibilityNodeInfo node :findEveryViewNode(child,className,context)){
+						list.add(node);
+					}
 				}
 			}
 
 		}
+		return list;
 	}
 
 	private void AddPlace()
