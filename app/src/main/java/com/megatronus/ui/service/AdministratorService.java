@@ -121,25 +121,24 @@ public class AdministratorService extends BaseAccessibilityService
 				//return ;
 			}
 			
-			//inputText(node,"1965689655");
 			
+			//inputText(node,"1965689605");
+		
 			try
 			{
 				Thread.sleep(500);
 			}
 			catch (InterruptedException e)
 			{}
-			
-			AccessibilityNodeInfo nodep = findViewByText("密码", false);
+
+			AccessibilityNodeInfo nodep = findViewByTextLast("密码", true);
+			//inputText(nodep,"bWVnY0Ryb251cw==");
 			
 			
 			if(nodep == null){
 				log("nodep null");
 				//return;
 			}
-			
-			//inputText(nodep,"bWVnYXRyb051cw==");
-			
 			
 			method(getRootInActiveWindow());
 			
