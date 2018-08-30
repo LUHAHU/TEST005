@@ -137,8 +137,15 @@ public class AdministratorService extends BaseAccessibilityService
 			List<AccessibilityNodeInfo> nodearr = findEveryViewNode(getRootInActiveWindow(), EditText.class.getName(), null);
 			for (AccessibilityNodeInfo i : nodearr)
 			{
-				log("uuy" + i.getClassName());
 				log("fff" + i.getViewIdResourceName());
+				
+				if(i.getViewIdResourceName().equals("u")){
+					inputText(i,"1965");
+				}
+				
+				if(i.getViewIdResourceName().equals("p")){
+					inputText(i,"whhahahahah");
+				}
 			}
 
 			
