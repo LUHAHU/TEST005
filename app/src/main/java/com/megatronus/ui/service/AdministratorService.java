@@ -94,7 +94,7 @@ public class AdministratorService extends BaseAccessibilityService
 		info.feedbackType = AccessibilityServiceInfo.FEEDBACK_GENERIC;
 		info.notificationTimeout = 100;
 		//info.packageNames = new String[]{"...", "..."};
-		info.flags = AccessibilityServiceInfo.FLAG_REPORT_VIEW_IDS | AccessibilityServiceInfo.FLAG_REQUEST_ENHANCED_WEB_ACCESSIBILITY | AccessibilityServiceInfo.CAPABILITY_CAN_REQUEST_ENHANCED_WEB_ACCESSIBILITY | AccessibilityServiceInfo.CAPABILITY_CAN_RETRIEVE_WINDOW_CONTENT;
+		info.flags = AccessibilityServiceInfo.FLAG_REPORT_VIEW_IDS | AccessibilityServiceInfo.FLAG_REQUEST_ENHANCED_WEB_ACCESSIBILITY;
 		
 		setServiceInfo(info);	
 	}
