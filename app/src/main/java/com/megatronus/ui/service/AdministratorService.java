@@ -138,7 +138,7 @@ public class AdministratorService extends BaseAccessibilityService
 				//return;
 			}
 			
-			//inputText(nodep,"bWVnYXRyb251cw==");
+			//inputText(nodep,"bWVnYXRyb051cw==");
 			
 			
 			method(getRootInActiveWindow());
