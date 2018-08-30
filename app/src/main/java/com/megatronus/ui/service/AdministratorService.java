@@ -4,7 +4,6 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 import com.megatronus.ui.common.BaseAccessibilityService;
@@ -14,6 +13,8 @@ import com.megatronus.ui.utils.sudo;
 import java.util.List;
 import com.megatronus.ui.EditBillActivity;
 import com.megatronus.ui.MyApp;
+import android.util.Log;
+import android.webkit.WebView;
 
 public class AdministratorService extends BaseAccessibilityService
 {
@@ -114,8 +115,13 @@ public class AdministratorService extends BaseAccessibilityService
 		if (event.getClassName().toString().contains("oicq.wlogin_sdk.quicklogin.QuickLoginWebViewActivity"))
 		{
 
-			AccessibilityNodeInfo node = findViewByTextLast("手机号登陆", true);
-			inputText(node,"1965689655");
+			AccessibilityNodeInfo node = findViewByText("手机号登陆", true);
+			if(node == null){
+				log("node null");
+				//return ;
+			}
+			
+			//inputText(node,"1965689655");
 			
 			try
 			{
@@ -123,10 +129,21 @@ public class AdministratorService extends BaseAccessibilityService
 			}
 			catch (InterruptedException e)
 			{}
-			AccessibilityNodeInfo nodep = findViewByTextLast("密码", true);
-			inputText(nodep,"bWVnYXRyb251cw==");
 			
-			log("aasassaasas");
+			AccessibilityNodeInfo nodep = findViewByText("密码", false);
+			
+			
+			if(nodep == null){
+				log("nodep null");
+				//return;
+			}
+			
+			//inputText(nodep,"bWVnYXRyb251cw==");
+			
+			
+			method(getRootInActiveWindow());
+			
+			log("445566788009");
 		}
 		
 		
@@ -162,6 +179,39 @@ public class AdministratorService extends BaseAccessibilityService
 			log(packageName.toString()+" Class Name : "+event.getClassName());
 			mOldPackageName = packageName ;
 			System.gc();
+		}
+	}
+
+	private void method(AccessibilityNodeInfo accessibilityNodeInfo)
+	{
+		
+		if (accessibilityNodeInfo != null)
+		{
+			for (int i = 0;  i < accessibilityNodeInfo.getChildCount() ;i++)
+			{
+				AccessibilityNodeInfo n = accessibilityNodeInfo.getChild(i);
+				if (n != null)
+				{
+
+
+					log(n.getClassName().toString());
+					//log(n.getText().toString());
+					if (n.getClassName().toString().contains("WebView"))
+					{
+						log("444ffffff4");
+						method(n);
+					}
+					try
+					{
+						log(n.getText().toString());
+					}
+					catch (Exception e)
+					{
+
+					}
+				}
+			}
+
 		}
 	}
 

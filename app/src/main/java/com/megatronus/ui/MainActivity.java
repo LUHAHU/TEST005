@@ -2,15 +2,15 @@ package com.megatronus.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import com.megatronus.ui.utils.sudo;
-import com.megatronus.ui.service.AdministratorService;
-import android.provider.Settings;
 import android.widget.Toast;
+import com.megatronus.ui.utils.sudo;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,SeekBar.OnSeekBarChangeListener,View.OnLongClickListener
 {
@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+		Log.e("AdministratorService", "");
 		initView();
     }
 
