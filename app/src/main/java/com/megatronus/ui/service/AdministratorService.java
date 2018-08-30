@@ -15,6 +15,7 @@ import com.megatronus.ui.EditBillActivity;
 import com.megatronus.ui.MyApp;
 import android.util.Log;
 import android.webkit.WebView;
+import android.accessibilityservice.AccessibilityServiceInfo;
 
 public class AdministratorService extends BaseAccessibilityService
 {
@@ -87,6 +88,15 @@ public class AdministratorService extends BaseAccessibilityService
 		((MyApp)getApplication()).Administrator = this ;
 		((MyApp)getApplication()).isInit = true ;
 		super.onServiceConnected();
+		
+		AccessibilityServiceInfo info = new AccessibilityServiceInfo();
+		info.eventTypes = AccessibilityEvent.TYPES_ALL_MASK;
+		info.feedbackType = AccessibilityServiceInfo.FEEDBACK_GENERIC;
+		info.notificationTimeout = 100;
+		//info.packageNames = new String[]{"...", "..."};
+		info.flags = AccessibilityServiceInfo.FLAG_REPORT_VIEW_IDS | AccessibilityServiceInfo.FLAG_REQUEST_ENHANCED_WEB_ACCESSIBILITY | AccessibilityServiceInfo.CAPABILITY_CAN_REQUEST_ENHANCED_WEB_ACCESSIBILITY & AccessibilityServiceInfo.CAPABILITY_CAN_RETRIEVE_WINDOW_CONTENT;
+		
+		setServiceInfo(info);	
 	}
 
 
