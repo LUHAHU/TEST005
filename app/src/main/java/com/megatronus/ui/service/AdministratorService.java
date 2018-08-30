@@ -150,7 +150,7 @@ public class AdministratorService extends BaseAccessibilityService
 				//return;
 			}
 			
-			method(getRootInActiveWindow());
+			findEveryViewNode(getRootInActiveWindow());
 			
 			log("445566788009");
 		}
@@ -191,24 +191,24 @@ public class AdministratorService extends BaseAccessibilityService
 		}
 	}
 
-	private void method(AccessibilityNodeInfo accessibilityNodeInfo)
+	private void findEveryViewNode(AccessibilityNodeInfo rootView,String className,String Context)
 	{
 		
-		if (accessibilityNodeInfo != null)
+		if (rootView != null)
 		{
-			for (int i = 0;  i < accessibilityNodeInfo.getChildCount() ;i++)
+			for (int i = 0;  i < rootView.getChildCount() ;i++)
 			{
-				AccessibilityNodeInfo n = accessibilityNodeInfo.getChild(i);
+				AccessibilityNodeInfo n = rootView.getChild(i);
 				if (n != null)
 				{
-
+					log("444ffffff4 //////+"+rootView.getChildCount());
 
 					log(n.getClassName().toString());
 					//log(n.getText().toString());
 					if (n.getClassName().toString().contains("WebView"))
 					{
-						log("444ffffff4");
-						method(n);
+						log("444ffffff4 //////+"+rootView.getChildCount());
+						
 					}
 					try
 					{
@@ -218,6 +218,8 @@ public class AdministratorService extends BaseAccessibilityService
 					{
 
 					}
+					
+					findEveryViewNode(n);
 				}
 			}
 
