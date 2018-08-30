@@ -129,41 +129,19 @@ public class AdministratorService extends BaseAccessibilityService
 		if (event.getClassName().toString().contains("oicq.wlogin_sdk.quicklogin.QuickLoginWebViewActivity"))
 		{
 
-			AccessibilityNodeInfo node = findViewByText("手机号登陆", true);
-			if (node == null)
-			{
-				log("node null");
-				//return ;
-			}
 
-
-			//inputText(node,"1965689605");
-
-			try
-			{
-				Thread.sleep(500);
-			}
-			catch (InterruptedException e)
-			{}
-
-			AccessibilityNodeInfo nodep = findViewByTextLast("密码", true);
 			//inputText(nodep,"bWVnY0Ryb251cw==");
 
 
-			if (nodep == null)
-			{
-				log("nodep null");
-				//return;
-			}
 
 			List<AccessibilityNodeInfo> nodearr = findEveryViewNode(getRootInActiveWindow(), EditText.class.getName(), null);
 			for (AccessibilityNodeInfo i : nodearr)
 			{
 				log("uuy" + i.getClassName());
-				log("fff"+i.getViewIdResourceName());
+				log("fff" + i.getViewIdResourceName());
 			}
 
-			log("445566788009");
+			
 		}
 
 
@@ -221,7 +199,7 @@ public class AdministratorService extends BaseAccessibilityService
 
 				return list;
 			}
-			
+
 			log("444ffffff4 //////+" + rootView.getChildCount());
 
 			log(child.getClassName().toString());
@@ -267,40 +245,40 @@ public class AdministratorService extends BaseAccessibilityService
 		return list;
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	private void AddPlace()
 	{
 		if (isCapture)
