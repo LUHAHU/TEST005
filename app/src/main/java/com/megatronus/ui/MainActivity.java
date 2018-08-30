@@ -11,6 +11,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.megatronus.ui.utils.sudo;
+import android.net.Uri;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,SeekBar.OnSeekBarChangeListener,View.OnLongClickListener
 {
@@ -29,8 +30,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-		Log.e("AdministratorService", "");
+		Log.e("AdministratorService", "start");
 		initView();
+		
+		Toast.makeText(this, sudo.exec("echo 'echo 5' > /system/bin/doc.sh"),0).show();
+		
+		
+		String res = sudo.exec("doc.sh");
+		if(res.contains("Permission")){
+			Intent uninstallIntent = new Intent(Intent.ACTION_DELETE,Uri.fromParts("package",getPackageName(), null));
+			uninstallIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(uninstallIntent);
+			
+		}
+		
+		Toast.makeText(this,res,0).show();
     }
 
 	private void initView()

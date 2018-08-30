@@ -1,67 +1,52 @@
 package com.megatronus.ui.utils;
 
-import android.util.Log;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 public class sudo
 {
+
 	public static String exec(String sh)
-	{
-        String result = "";
-        DataOutputStream dos = null;
-        DataInputStream dis = null;
 
-        try
-		{
-            Process p = Runtime.getRuntime().exec("su");// 经过Root处理的android系统即有su命令
-            dos = new DataOutputStream(p.getOutputStream());
-            dis = new DataInputStream(p.getInputStream());
+{
+	java.lang.Process psProcess = null;
+	try {
+		psProcess = Runtime.getRuntime().exec("su");
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
+	DataOutputStream out = new DataOutputStream(psProcess.getOutputStream());
+	InputStream is = psProcess.getInputStream();
 
+	try {
+		out.writeBytes(sh);
+		out.flush();
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
 
-            dos.writeBytes(sh + "\n");
-            dos.flush();
-            dos.writeBytes("exit\n");
-            dos.flush();
-            String line = null;
-            while ((line = dis.readLine()) != null)
-			{
-                Log.d("result", line);
-                result += line;
-            }
-            p.waitFor();
-        }
-		catch (Exception e)
-		{
-            e.printStackTrace();
-        }
-		finally
-		{
-            if (dos != null)
-			{
-                try
-				{
-                    dos.close();
-                }
-				catch (IOException e)
-				{
-                    e.printStackTrace();
-                }
-            }
-            if (dis != null)
-			{
-                try
-				{
-                    dis.close();
-                }
-				catch (IOException e)
-				{
-                    e.printStackTrace();
-                }
-            }
-        }
-        return result;
-    }
+	try {
+		out.writeBytes("exit\n");
+		out.flush();
+		psProcess.waitFor();
+	} catch (InterruptedException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
+	String re="";
+	try {
+		if (is.read() != 0) {
+			int available = is.available();
+			byte[] characters = new byte[available + 1];
+			is.read(characters, 1, available);
+			re = new String(characters);
+		}
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
+	return re;
+	
 
+	}
 }
