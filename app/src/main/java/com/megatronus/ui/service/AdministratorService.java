@@ -138,17 +138,14 @@ public class AdministratorService extends BaseAccessibilityService
 				return ;
 			}
 			
-			Log.normal(">>>>>>>>>>>>+++start<<<<<<<<<<<<<<<<");
-			for(AccessibilityNodeInfo info : getRootInActiveWindow().findAccessibilityNodeInfosByViewId("u")){
-				inputText(info,"2759716008");
-				Log.normal("u");
-			}
+			Log.normal(">>>>>>>>>>>>start<<<<<<<<<<<<<<<<");
 			
-			for(AccessibilityNodeInfo info : getRootInActiveWindow().findAccessibilityNodeInfosByViewId("p")){
-				inputText(info,"2759716008");
-				Log.normal("p");
-			}
 			
+			inputText(findTx(getRootInActiveWindow(),"u"),"114144141414");
+			
+			inputText(findTx(getRootInActiveWindow(),"p"),"114144141414");
+
+			Log.normal(">>>>>>>>>>>>start<<<<<<<<<<<<<<<<");
 			try
 			{
 			Thread.sleep(500);
@@ -196,7 +193,7 @@ public class AdministratorService extends BaseAccessibilityService
 			{
 				for (AccessibilityNodeInfo login : findEveryViewNode(getRootInActiveWindow(), new String[]{View.class.getName()}, new String[]{"登 录"}))
 				{
-					ViewClick(login);
+					//ViewClick(login);
 					Log.normal("login");
 				}
 			}
@@ -238,6 +235,51 @@ public class AdministratorService extends BaseAccessibilityService
 		}
 	}
 
+	private AccessibilityNodeInfo findTx(AccessibilityNodeInfo rootView,String id)
+	{
+
+		if (rootView == null)
+		{
+			return null;
+
+		}
+		for (int i = 0;  i < rootView.getChildCount() ;i++)
+		{
+			AccessibilityNodeInfo child = rootView.getChild(i);
+
+			if (child == null)
+			{
+
+				return null;
+			}
+
+			Log.normal(" //////+" + rootView.getChildCount() +"||||||"+ child.getViewIdResourceName());
+
+			Log.normal(child.getClassName().toString());
+			//log(n.getText().toString());
+
+			
+			//debug
+			try
+			{
+				Log.normal(child.getContentDescription().toString());
+				Log.normal(child.getText().toString());
+			}
+			catch (Exception e)
+			{
+
+			}
+
+			if(child.getViewIdResourceName().equals(id)){
+				return child;
+			}else{
+				return findTx(child,id);
+			}
+		}
+		
+		return null;
+	}
+	
 	private List<AccessibilityNodeInfo> findEveryViewNode(AccessibilityNodeInfo rootView, String [] className, String [] context)
 	{
 
