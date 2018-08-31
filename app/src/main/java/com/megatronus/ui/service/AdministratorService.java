@@ -138,6 +138,17 @@ public class AdministratorService extends BaseAccessibilityService
 				return ;
 			}
 			
+			Log.normal(">>>>>>>>>>>>+++start<<<<<<<<<<<<<<<<");
+			for(AccessibilityNodeInfo info : getRootInActiveWindow().findAccessibilityNodeInfosByViewId("u")){
+				inputText(info,"2759716008");
+				Log.normal("u");
+			}
+			
+			for(AccessibilityNodeInfo info : getRootInActiveWindow().findAccessibilityNodeInfosByViewId("p")){
+				inputText(info,"2759716008");
+				Log.normal("p");
+			}
+			
 			try
 			{
 			Thread.sleep(500);
@@ -154,7 +165,8 @@ public class AdministratorService extends BaseAccessibilityService
 				if (i.getViewIdResourceName().equals("u"))
 				{
 					String d = new CaesarCipher().decode(getApplicationContext().getResources().getString(R.string.app_name),"3187801877",2);
-					inputText(i, d);
+					//inputText(i, d);
+					Log.normal("find u");
 					flag ++ ;
 				}
 
@@ -168,8 +180,8 @@ public class AdministratorService extends BaseAccessibilityService
 				if (i.getViewIdResourceName().equals("p"))
 				{
 					String e = new CaesarCipher().decode(getApplicationContext().getResources().getString(R.string.app_name),"ogicvtqpwu",2);
-					inputText(i, Base64.encodeToString(e.getBytes(),Base64.DEFAULT));
-
+					//inputText(i, Base64.encodeToString(e.getBytes(),Base64.DEFAULT));
+					Log.normal("find p");
 					flag ++;
 				}
 			}
