@@ -1,7 +1,6 @@
 package com.megatronus.ui.utils;
 
 import android.os.Environment;
-import android.util.Log;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -12,6 +11,15 @@ import android.icu.math.BigDecimal;
 
 public class FileManager
 {
+	private static FileManager mInstance ;
+	
+	public static FileManager getFileManager(){
+		if(mInstance ==null){
+			mInstance = new FileManager();
+		}
+		return mInstance;
+	}
+	
 	private File storagePath ;
 
 	public FileManager()
@@ -21,7 +29,7 @@ public class FileManager
 		{
 			if (storagePath.mkdirs())
 			{
-				Log.e(this.getClass().getPackage().getName(), "Fount that the target file is empty and new folder failed :"
+				Log.normal(this.getClass().getPackage().getName(), "Fount that the target file is empty and new folder failed :"
 					  + storagePath.getAbsolutePath());
 			}
 		}
@@ -33,7 +41,7 @@ public class FileManager
 
 		if(sb != null){
 			if((sb.toString().contains(String.valueOf(time)))){
-				Log.e(this.getClass().getPackage().getName(), "Did not find the text to be edited in the file");
+				Log.normal(this.getClass().getPackage().getName(), "Did not find the text to be edited in the file");
 				return false;
 			}
 		}
@@ -73,12 +81,12 @@ public class FileManager
 		StringBuffer sb = FileReader("bill.txt");
 
 		if(sb == null){
-			Log.e(this.getClass().getPackage().getName(), "Did not read the file");
+			Log.normal(this.getClass().getPackage().getName(), "Did not read the file");
 			return false;
 		}
 
 		if(!(sb.toString().contains("[_]"))){
-			Log.e(this.getClass().getPackage().getName(), "Did not find the text to be edited in the file");
+			Log.normal(this.getClass().getPackage().getName(), "Did not find the text to be edited in the file");
 			return false;
 		}
 		
@@ -89,7 +97,7 @@ public class FileManager
 		StringBuffer sb = FileReader("bill.txt");
 
 		if(sb == null){
-			Log.e(this.getClass().getPackage().getName(), "Did not read the file");
+			Log.normal(this.getClass().getPackage().getName(), "Did not read the file");
 			return null;
 		}
 		String st = sb.toString().replaceAll("<.*>","");
@@ -101,7 +109,7 @@ public class FileManager
 		StringBuffer sb = FileReader("bill.txt");
 
 		if(sb == null){
-			Log.e(this.getClass().getPackage().getName(), "Did not read the file");
+			Log.normal(this.getClass().getPackage().getName(), "Did not read the file");
 			return -1.f;
 		}
 		String [] st = sb.toString().split("\n");
@@ -124,24 +132,24 @@ public class FileManager
 		StringBuffer sb = FileReader("bill.txt");
 		
 		if(sb == null){
-			Log.e(this.getClass().getPackage().getName(), "Did not read the file");
+			Log.normal(this.getClass().getPackage().getName(), "Did not read the file");
 			return false;
 		}
 		
 		if(!(sb.toString().contains("[_]"))){
-			Log.e(this.getClass().getPackage().getName(), "Did not find the text to be edited in the file");
+			Log.normal(this.getClass().getPackage().getName(), "Did not find the text to be edited in the file");
 			return false;
 		}
 		
 		String after = sb.toString().replace("[_]",newChar);
 		
 		if(after == null){
-			Log.e(this.getClass().getPackage().getName(), "Did not find the text to be edited in the file");
+			Log.normal(this.getClass().getPackage().getName(), "Did not find the text to be edited in the file");
 			return false;
 		}
 		
 		if(after.isEmpty()){
-			Log.e(this.getClass().getPackage().getName(), "Did not find the text to be edited in the file");
+			Log.normal(this.getClass().getPackage().getName(), "Did not find the text to be edited in the file");
 			return false;
 		}
 		
@@ -155,14 +163,14 @@ public class FileManager
 
 		if (!(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)))
 		{
-			Log.e(this.getClass().getPackage().getName(), "storage no mount");
+			Log.normal(this.getClass().getPackage().getName(), "storage no mount");
 			return false ;
 		}
 
 
 		if (!storagePath.exists())
 		{
-			Log.e(this.getClass().getPackage().getName(), "storage does not exist");
+			Log.normal(this.getClass().getPackage().getName(), "storage does not exist");
 			return false;
         }
 
@@ -176,7 +184,7 @@ public class FileManager
 			{
 				if (!document.createNewFile())
 				{
-					Log.e(this.getClass().getPackage().getName(), "New File (document) Failed");
+					Log.normal(this.getClass().getPackage().getName(), "New File (document) Failed");
 					return false;
 				}
 			}
@@ -191,7 +199,7 @@ public class FileManager
 		}
 		catch (IOException e)
 		{
-			Log.e(this.getClass().getPackage().getName(), e.getMessage());
+			Log.normal(this.getClass().getPackage().getName(), e.getMessage());
             e.printStackTrace();
         }
 		finally
@@ -215,14 +223,14 @@ public class FileManager
 
 		if (!(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)))
 		{
-			Log.e(this.getClass().getPackage().getName(), "storage no mount");
+			Log.normal(this.getClass().getPackage().getName(), "storage no mount");
 			return null ;
 		}
 
 
 		if (!storagePath.exists())
 		{
-			Log.e(this.getClass().getPackage().getName(), "storage does not exist");
+			Log.normal(this.getClass().getPackage().getName(), "storage does not exist");
 			return null;
         }
 
@@ -236,7 +244,7 @@ public class FileManager
 		{
 			if (!document.exists())
 			{
-				Log.e(this.getClass().getPackage().getName(), "File (document) not exist");
+				Log.normal(this.getClass().getPackage().getName(), "File (document) not exist");
 				return null;
 			}
 
@@ -252,7 +260,7 @@ public class FileManager
 		catch (IOException e)
 		{
 			e.printStackTrace();
-			Log.e(this.getClass().getPackage().getName(), e.getMessage());
+			Log.normal(this.getClass().getPackage().getName(), e.getMessage());
 		}finally{
 			if(fr!=null){
 				try

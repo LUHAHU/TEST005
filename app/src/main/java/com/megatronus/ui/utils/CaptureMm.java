@@ -1,6 +1,5 @@
 package com.megatronus.ui.utils;
 
-import android.util.Log;
 import android.view.accessibility.AccessibilityNodeInfo;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,7 +28,7 @@ public class CaptureMm
 
 		if (node == null)
 		{
-			Log.e(this.getClass().getPackage().getName(),"The Parameter is empty (AccessibilityNodeInfo)" );
+			Log.normal(this.getClass().getPackage().getName(),"The Parameter is empty (AccessibilityNodeInfo)" );
 			return false;
 		}
 
@@ -37,7 +36,7 @@ public class CaptureMm
 
 		if (parentNode == null)
 		{
-			Log.e(this.getClass().getPackage().getName(),"Unable to find parent class (AccessibilityNodeInfo)" );
+			Log.normal(this.getClass().getPackage().getName(),"Unable to find parent class (AccessibilityNodeInfo)" );
 			return false;
 		}
 
@@ -100,7 +99,7 @@ public class CaptureMm
 		
 		CharSequence str = Date + (APM ? " 上午 " : " 下午 ") + " [_] " + "金额 : 「" + money + "」  <" + Time + ">";
 		if(!mFileManager.FileWriter(str,Time)){
-			Log.e(this.getClass().getPackage().getName(),"Failed to Write to File");
+			Log.normal(this.getClass().getPackage().getName(),"Failed to Write to File");
 			return false;
 		}
 		System.gc();

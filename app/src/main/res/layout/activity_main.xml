@@ -40,7 +40,8 @@
 
 	<RelativeLayout
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@drawable/editbillback"
 		android:padding="10dp">
 
 		<ImageButton
@@ -65,7 +66,6 @@
 			android:text="1080x1920"
 			android:gravity="center"
 			android:id="@+id/ResolutionText"
-			android:textColor="#000000"
 			android:layout_toRightOf="@id/ScreenSizeBtn"
 			android:textAppearance="?android:attr/textAppearanceMedium"
 			android:layout_alignTop="@id/ScreenSizeBtn"/>
@@ -87,7 +87,6 @@
 			android:textAppearance="?android:attr/textAppearanceMedium"
 			android:layout_alignTop="@id/screenDpiBtn"
 			android:gravity="center"
-			android:textColor="#000000"
 			android:id="@+id/screenDpiText"/>
 
 		<SeekBar
@@ -99,6 +98,31 @@
 			android:id="@+id/screenDpiSeekBar"/>
 
 	</RelativeLayout>
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:layout_width="match_parent"
+		android:text="Medium Text"
+		android:textIsSelectable="true"
+		android:padding="20dp"
+		android:id="@+id/mainTvShowKey"
+		android:gravity="center"/>
+
+	<EditText
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:ems="10"
+		android:padding="10dp"
+		android:id="@+id/mainEtInKey"/>
+
+	<Button
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:text="解锁 (╯°口°)╯(┴—┴"
+		android:background="@drawable/editbillback"
+		android:padding="10dp"
+		android:id="@+id/mainUnLook"/>
 
 </LinearLayout>
 

