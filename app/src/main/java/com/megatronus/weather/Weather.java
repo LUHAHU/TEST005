@@ -16,13 +16,16 @@ import java.util.List;
 import com.megatronus.weather.bean.Forecast;
 import com.megatronus.weather.bean.Now;
 import com.megatronus.weather.bean.Hourly;
+import com.megatronus.ui.utils.Log;
 
-public class Weather extends AsyncTask<String, String, String>
+public class  Weather<T> extends AsyncTask<String,Void,String>
  {
-	 private TextView tv;
+	 private CallBack cb;
+	 private Class<?> clazz ;
 	 
-	 public Weather(TextView view){
-		 tv = view ;
+	 public Weather(Class<?> jsonCla,CallBack callback){
+		 clazz = jsonCla ;
+		 cb = callback ;
 	 }
 	 
 	@Override
@@ -64,10 +67,15 @@ public class Weather extends AsyncTask<String, String, String>
 
 			System.out.println("200");
 		}
-			
-			Now fs = JSON.parseObject(s,Now.class);
-			tv.setText(fs.HeWeather6.get(0).now.cond_txt);
-			tv.append("\n\n++" + s);
 		
+		T Sequ = (T) JSON.parseObject(s,clazz);
+		
+		Log.normal(s);
+		
+		cb.result(Sequ);
+	}
+	
+	public interface CallBack<T>{
+		void result(T json);
 	}
 }

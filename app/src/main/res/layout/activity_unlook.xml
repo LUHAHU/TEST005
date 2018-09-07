@@ -1,14 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:orientation="vertical"
-	tools:context="com.megatronus.ui.MainActivity">
-
-	<android.support.v7.widget.Toolbar
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+	
+    <android.support.v7.widget.Toolbar
 		android:id="@+id/tb_header"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
@@ -37,19 +34,29 @@
 		</RelativeLayout>
 
 	</android.support.v7.widget.Toolbar>
+	<TextView
+		android:layout_height="wrap_content"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:layout_width="match_parent"
+		android:text="KEY CODE"
+		android:textIsSelectable="true"
+		android:padding="20dp"
+		android:id="@+id/mainTvShowKey"
+		android:gravity="center"/>
+
+	<EditText
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:ems="10"
+		android:padding="10dp"
+		android:id="@+id/mainEtInKey"/>
 
 	<Button
-		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="Button"
-		android:onClick="onClick"
-		android:id="@+id/activitymainButton1"/>
-
-	<Button
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="Button"
-		android:onClick="onClick"/>
-
+		android:layout_width="match_parent"
+		android:text="解锁 (╯°口°)╯(┴—┴"
+		android:background="@drawable/editbillback"
+		android:padding="10dp"
+		android:id="@+id/mainUnLook"/>
+	
 </LinearLayout>
-

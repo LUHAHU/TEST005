@@ -19,153 +19,98 @@ import java.text.ParseException;
 import android.util.Base64;
 import android.os.Handler;
 import com.megatronus.ui.utils.FileManager;
+import com.megatronus.weather.Weather;
+import com.megatronus.weather.bean.Now;
+import com.megatronus.weather.Conn;
+import com.megatronus.weather.bean.Forecast;
+import com.megatronus.weather.WeatherActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,SeekBar.OnSeekBarChangeListener,View.OnLongClickListener
 {
 
 	private TextView ToolBarMenu ;
-	private TextView ResolutionText ;
-	private TextView ShowKeyTv ;
-	private SeekBar ScreenSizeBar;
-	private ImageButton ScreenSizeBtn;
 
-	private TextView DpiText ;
-	private SeekBar ScreenDpiBar;
-	private ImageButton ScreenDpiBtn;
-	private EditText InKeyEd;
-	private Button BtnUnLock;
-
-	private String mOriginalCode;
-
-	private String mKey;
-	
 	private Handler handle ;
-	
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-		
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 		handle = new Handler();
-		
-		
+
+
 		Log.e("AdministratorService", "start");
-		
-		
-		
-			initView();
-		
-	
+
+
+
+		initView();
+
+
     }
 
-	private void generate()
-	{
-		mOriginalCode = Base64.encodeToString(String.valueOf(System.currentTimeMillis()).getBytes(), Base64.NO_PADDING | Base64.NO_WRAP) ;
-		mKey = new CaesarCipher().encode(getApplicationContext().getPackageName(), mOriginalCode, 5);
-		
-		ShowKeyTv.setText(mOriginalCode);
-	}
+
 
 	private void initView()
 	{
 		ToolBarMenu = (TextView) findViewById(R.id.main_setting);
-		ResolutionText = (TextView) findViewById(R.id.ResolutionText);
-		ScreenSizeBar = (SeekBar) findViewById(R.id.ScreenSizeSeekBar);
-		ScreenSizeBtn = (ImageButton) findViewById(R.id.ScreenSizeBtn);		
-		BtnUnLock = (Button) findViewById(R.id.mainUnLook);		
 
-		DpiText = (TextView) findViewById(R.id.screenDpiText);
-		ScreenDpiBar = (SeekBar) findViewById(R.id.screenDpiSeekBar);
-		ScreenDpiBtn = (ImageButton) findViewById(R.id.screenDpiBtn);		
-		ShowKeyTv = (TextView) findViewById(R.id.mainTvShowKey);
-		InKeyEd = (EditText) findViewById(R.id.mainEtInKey);
-		
+
 		ToolBarMenu.setOnClickListener(this);
 		ToolBarMenu.setOnLongClickListener(this);
-		ScreenSizeBtn.setOnClickListener(this);
-		ScreenSizeBar.setOnSeekBarChangeListener(this);
-		BtnUnLock.setOnClickListener(this);
-		
-		DpiText.setOnClickListener(this);
-		ScreenDpiBtn.setOnClickListener(this);
-		ScreenDpiBar.setOnSeekBarChangeListener(this);
 
-		ScreenSizeBar.setMax(19);
-		ScreenSizeBar.setProgress(9);
 
-		ScreenDpiBar.setMax(19);
-		ScreenDpiBar.setProgress(9);
-		
-		generate();
-		
+
 	}
-	
-	
-	
+
+
+
 	///////*****************************************************///
 
-	public void onClick(View v)
+	public void onClick(final View v)
 	{
 
 		switch (v.getId())
 		{
-			case R.id.ScreenSizeBtn:
 
-				int i = ScreenSizeBar.getProgress();
-
-				Resolution(i, true);
-				break ;
-
-			case R.id.screenDpiBtn:
-
-				int dpi =ScreenDpiBar.getProgress();
-				ZoomDpi(dpi, true);
-				break;
 			case R.id.main_setting:
-				
-				this.startActivity(new Intent(this,EditBillActivity.class));
-				break ;
-			case R.id.mainUnLook:
 
-				if(!mKey.equals(InKeyEd.getText().toString())){
-					Toast.makeText(MainActivity.this,"密码错误",0).show();
-					break ;
-				}
-				
-				((MyApp)getApplication()).bLock = true;
-				
-				BtnUnLock.setText("已解锁（#-_-)┯━┯");
-				
-				handle.postDelayed(new Runnable(){
+				this.startActivity(new Intent(this, EditBillActivity.class));
+				break ;
+			case R.id.activitymainButton1:
+
+				startActivity(new Intent(this, WeatherActivity.class));
+				break;
+
+			default:
+
+
+				startActivity(new Intent(this, ResolutionActivity.class));
+				new Weather<Forecast>(Forecast.class, new Weather.CallBack<Forecast>(){
 
 						@Override
-						public void run()
+						public void result(Forecast json)
 						{
-							((MyApp)getApplication()).bLock = false;
-							BtnUnLock.setText("解锁 (ﾟДﾟ≡ﾟдﾟ)!");
-							Toast.makeText(MainActivity.this,"密码已过期",0).show();
-							
-							generate();
-							
+							if (json.isValid())
+								((Button)v).setText(json.getHeWeather6().daily_forecast.get(0).date + json.getHeWeather6().update.loc);
 						}
-						
-					
-				},300000);
-				
-				
-				break ;
+					}).execute(Conn.FIRECAST);
+				break;
 		}
 	}
-	
+
 
 	@Override
 	public boolean onLongClick(View p1)
 	{
-		if(((MyApp)getApplication()).isInit){
+		if (((MyApp)getApplication()).isInit)
+		{
 			((MyApp)getApplication()).Administrator.isCapture = true ;
 			finish();
-		}else{
+		}
+		else
+		{
 			Toast.makeText(this, "failure!", 0).show();
 		}
 		goAccess();
@@ -178,49 +123,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         getApplicationContext().startActivity(intent);
     }
-	
-	public void Resolution(int p2, boolean Set)
-	{
-		p2 = p2 + 1;
 
-		float size =  ((float)p2 / (float)10);
 
-		int x =(int) (1080 * size);
-		int y =(int) (1920 * size);
-		ResolutionText.setText(x + "x" + y);
 
-		if (Set)
-			sudo.exec("wm size " + x + "x" + y);
-	}
 
-	public void ZoomDpi(int dpi , boolean Set)
-	{
-		dpi++;
-
-		float dpisize = ((float)dpi) / 10.0f;
-
-		dpi = (int )(480 * dpisize);
-
-		DpiText.setText(String.valueOf(dpi));
-
-		if (Set)
-			sudo.exec("wm density " + dpi);
-	}
 	@Override
 	public void onProgressChanged(SeekBar p1, int p2, boolean p3)
 	{
-		switch (p1.getId())
-		{
 
-			case R.id.ScreenSizeSeekBar:
-				Resolution(p2, false);
-				break;
-			case R.id.screenDpiSeekBar:
-				ZoomDpi(p2, false);
-				break;
-			default:
-				break;
-		}
 	}
 
 	@Override
@@ -241,5 +151,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		((MyApp)getApplication()).bLock = false ;
 		super.onDestroy();
 	}
-	
+
 }

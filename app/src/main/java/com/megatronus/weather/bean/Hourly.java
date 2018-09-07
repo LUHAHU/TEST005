@@ -3,8 +3,23 @@ import java.util.List;
 
 public class Hourly
 {
-	public List<HeWeather> HeWaether6 ;
+	private List<HeWeather> HeWeather6 ;
 
+	public void setHeWeather6(List<HeWeather> heWeather6)
+	{
+		HeWeather6 = heWeather6;
+	}
+
+	public HeWeather getHeWeather6()
+	{
+		return isValid() ? HeWeather6.get(0) : null;
+	}
+	
+	
+	public boolean isValid(){
+		return HeWeather6 == null ? false : true;
+	}
+	
     public class HeWeather
 	{
 		public Basic basic ;

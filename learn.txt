@@ -2,3 +2,23 @@ https://blog.csdn.net/AndrExpert/article/details/53494776?locationNum=13&fps=1
 https://www.jianshu.com/p/ef01ce654302
 
 https://www.cordcloud.me/auth/login
+
+String d = new CaesarCipher().decode(getApplicationContext().getResources().getString(R.string.app_name),"3187801877",2);
+					//inputText(i, d);
+					Log.normal("find u");
+					flag ++ ;
+				}
+
+				try
+			{
+			Thread.sleep(300);
+			}
+			catch (InterruptedException e) {}
+			
+				
+				if (i.getViewIdResourceName().equals("p"))
+				{
+					String e = new CaesarCipher().decode(getApplicationContext().getResources().getString(R.string.app_name),"ogicvtqpwu",2);
+					//inputText(i, Base64.encodeToString(e.getBytes(),Base64.DEFAULT));
+					Log.normal("find p");
+					flag ++;

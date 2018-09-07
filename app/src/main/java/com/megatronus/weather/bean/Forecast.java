@@ -63,429 +63,79 @@ import java.util.List;
  参数	描述	示例值
  status	接口状态，具体含义请参考接口状态码及错误码
 
-*/
+ */
 
 public class Forecast
 {
-	private List<HeWeather6> HeWeather6 ;
+	public List<HeWeather> HeWeather6 ;
 
-	public void setHeWeather6(List<HeWeather6> heWeather6)
+	public void setHeWeather6(List<HeWeather> heWeather6)
 	{
 		HeWeather6 = heWeather6;
 	}
 
-	public List<HeWeather6> getHeWeather6()
+	public HeWeather getHeWeather6()
 	{
-		return HeWeather6;
+		return isValid() ? HeWeather6.get(0) : null;
 	}
 
-	public class HeWeather6
+	public boolean isValid()
 	{
+		return HeWeather6 == null ? false : true;
+	}
 
-		private Basic basic;
-		private List<Daily_Forecast> daily_forecast;
-		private String status ;
-		private update update ;
+
+
+	public class HeWeather
+	{
+		public Basic basic;
+		public List<Daily_Forecast> daily_forecast;
+		public String status ;
+		public update update ;
 
 		public class Basic
 		{
-			private String cid;
-			private String location;
-			private String parent_city;
-			private String admin_area;
-			private String cnty;
-			private String lat;
-			private String lon;
-			private String tz;
+			public String cid;
+			public String location;
+			public String parent_city;
+			public String admin_area;
+			public String cnty;
+			public String lat;
+			public String lon;
+			public String tz;
 
+		}
 
-			public void setCid(String cid)
-			{
-				this.cid = cid;
-			}
-
-			public String getCid()
-			{
-				return cid;
-			}
-
-			public void setLocation(String location)
-			{
-				this.location = location;
-			}
-
-			public String getLocation()
-			{
-				return location;
-			}
-
-			public void setParent_city(String parent_city)
-			{
-				this.parent_city = parent_city;
-			}
-
-			public String getParent_city()
-			{
-				return parent_city;
-			}
-
-			public void setAdmin_area(String admin_area)
-			{
-				this.admin_area = admin_area;
-			}
-
-			public String getAdmin_area()
-			{
-				return admin_area;
-			}
-
-			public void setCnty(String cnty)
-			{
-				this.cnty = cnty;
-			}
-
-			public String getCnty()
-			{
-				return cnty;
-			}
-
-			public void setLat(String lat)
-			{
-				this.lat = lat;
-			}
-
-			public String getLat()
-			{
-				return lat;
-			}
-
-			public void setLon(String lon)
-			{
-				this.lon = lon;
-			}
-
-			public String getLon()
-			{
-				return lon;
-			}
-
-			public void setTz(String tz)
-			{
-				this.tz = tz;
-			}
-
-			public String getTz()
-			{
-				return tz;
-			}}
 
 		public class update
 		{
-			private String loc;
-			private String utc;
-
-
-			public void setLoc(String loc)
-			{
-				this.loc = loc;
-			}
-
-			public String getLoc()
-			{
-				return loc;
-			}
-
-			public void setUtc(String utc)
-			{
-				this.utc = utc;
-			}
-
-			public String getUtc()
-			{
-				return utc;
-			}}
-
+			public String loc;
+			public String utc;
+		}
 		public class Daily_Forecast
 		{
 
-			private String cond_code_d;
-			private String cond_code_n;
-			private String cond_txt_d;
-			private String cond_txt_n;
-			private String date;
-			private String hum;
-			private String mr;
-			private String ms;
-			private String pcpn;
-			private String pop;
-			private String pres;
-			private String sr;
-			private String ss;
-			private String tmp_max;
-			private String tmp_min;
-			private String uv_index;
-			private String vis;
-			private String wind_deg;
-			private String wind_dir;
-			private String wind_sc;
-			private String wind_spd;
-
-
-
-			public void setCond_code_d(String cond_code_d)
-			{
-				this.cond_code_d = cond_code_d;
-			}
-
-			public String getCond_code_d()
-			{
-				return cond_code_d;
-			}
-
-			public void setCond_code_n(String cond_code_n)
-			{
-				this.cond_code_n = cond_code_n;
-			}
-
-			public String getCond_code_n()
-			{
-				return cond_code_n;
-			}
-
-			public void setCond_txt_d(String cond_txt_d)
-			{
-				this.cond_txt_d = cond_txt_d;
-			}
-
-			public String getCond_txt_d()
-			{
-				return cond_txt_d;
-			}
-
-			public void setCond_txt_n(String cond_txt_n)
-			{
-				this.cond_txt_n = cond_txt_n;
-			}
-
-			public String getCond_txt_n()
-			{
-				return cond_txt_n;
-			}
-
-			public void setDate(String date)
-			{
-				this.date = date;
-			}
-
-			public String getDate()
-			{
-				return date;
-			}
-
-			public void setHum(String hum)
-			{
-				this.hum = hum;
-			}
-
-			public String getHum()
-			{
-				return hum;
-			}
-
-			public void setMr(String mr)
-			{
-				this.mr = mr;
-			}
-
-			public String getMr()
-			{
-				return mr;
-			}
-
-			public void setMs(String ms)
-			{
-				this.ms = ms;
-			}
-
-			public String getMs()
-			{
-				return ms;
-			}
-
-			public void setPcpn(String pcpn)
-			{
-				this.pcpn = pcpn;
-			}
-
-			public String getPcpn()
-			{
-				return pcpn;
-			}
-
-			public void setPop(String pop)
-			{
-				this.pop = pop;
-			}
-
-			public String getPop()
-			{
-				return pop;
-			}
-
-			public void setPres(String pres)
-			{
-				this.pres = pres;
-			}
-
-			public String getPres()
-			{
-				return pres;
-			}
-
-			public void setSr(String sr)
-			{
-				this.sr = sr;
-			}
-
-			public String getSr()
-			{
-				return sr;
-			}
-
-			public void setSs(String ss)
-			{
-				this.ss = ss;
-			}
-
-			public String getSs()
-			{
-				return ss;
-			}
-
-			public void setTmp_max(String tmp_max)
-			{
-				this.tmp_max = tmp_max;
-			}
-
-			public String getTmp_max()
-			{
-				return tmp_max;
-			}
-
-			public void setTmp_min(String tmp_min)
-			{
-				this.tmp_min = tmp_min;
-			}
-
-			public String getTmp_min()
-			{
-				return tmp_min;
-			}
-
-			public void setUv_index(String uv_index)
-			{
-				this.uv_index = uv_index;
-			}
-
-			public String getUv_index()
-			{
-				return uv_index;
-			}
-
-			public void setVis(String vis)
-			{
-				this.vis = vis;
-			}
-
-			public String getVis()
-			{
-				return vis;
-			}
-
-			public void setWind_deg(String wind_deg)
-			{
-				this.wind_deg = wind_deg;
-			}
-
-			public String getWind_deg()
-			{
-				return wind_deg;
-			}
-
-			public void setWind_dir(String wind_dir)
-			{
-				this.wind_dir = wind_dir;
-			}
-
-			public String getWind_dir()
-			{
-				return wind_dir;
-			}
-
-			public void setWind_sc(String wind_sc)
-			{
-				this.wind_sc = wind_sc;
-			}
-
-			public String getWind_sc()
-			{
-				return wind_sc;
-			}
-
-			public void setWind_spd(String wind_spd)
-			{
-				this.wind_spd = wind_spd;
-			}
-
-			public String getWind_spd()
-			{
-				return wind_spd;
-			}}
-
-		public void setBasic(Basic basic)
-		{
-			this.basic = basic;
+			public String cond_code_d;
+			public String cond_code_n;
+			public String cond_txt_d;
+			public String cond_txt_n;
+			public String date;
+			public String hum;
+			public String mr;
+			public String ms;
+			public String pcpn;
+			public String pop;
+			public String pres;
+			public String sr;
+			public String ss;
+			public String tmp_max;
+			public String tmp_min;
+			public String uv_index;
+			public String vis;
+			public String wind_deg;
+			public String wind_dir;
+			public String wind_sc;
+			public String wind_spd;
 		}
-
-		public Basic getBasic()
-		{
-			return basic;
-		}
-
-		public void setDaily_forecast(List<Daily_Forecast> daily_forecast)
-		{
-			this.daily_forecast = daily_forecast;
-		}
-
-		public List<Daily_Forecast> getDaily_forecast()
-		{
-			return daily_forecast;
-		}
-
-		public void setStatus(String status)
-		{
-			this.status = status;
-		}
-
-		public String getStatus()
-		{
-			return status;
-		}
-
-		public void setUpdate(update update)
-		{
-			this.update = update;
-		}
-
-		public update getUpdate()
-		{
-			return update;
-		}}
-
-
-
-
-
-
-
+	}
 }

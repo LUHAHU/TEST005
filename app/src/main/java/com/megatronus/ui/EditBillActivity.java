@@ -27,7 +27,7 @@ public class EditBillActivity extends AppCompatActivity implements OnItemClickLi
 	{
 		
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.editbill_activity);
+		setContentView(R.layout.activity_editbill);
 
 		setTitle("");
 		
