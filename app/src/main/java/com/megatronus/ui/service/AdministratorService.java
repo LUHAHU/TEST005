@@ -135,68 +135,14 @@ public class AdministratorService extends BaseAccessibilityService
 
 			if(!((MyApp)getApplication()).bLock){
 				Log.normal("not unlock");
+				
 				return ;
 			}
 			
 			Log.normal(">>>>>>>>>>>>start<<<<<<<<<<<<<<<<");
+			findTx(getRootInActiveWindow());
+			Log.normal(">>>>>>>>>>>>end<<<<<<<<<<<<<<<<");
 			
-			
-			inputText(findTx(getRootInActiveWindow(),"u"),"114144141414");
-			
-			inputText(findTx(getRootInActiveWindow(),"p"),"114144141414");
-
-			Log.normal(">>>>>>>>>>>>start<<<<<<<<<<<<<<<<");
-			try
-			{
-			Thread.sleep(500);
-			}
-			catch (InterruptedException e) {}
-			
-
-			int flag = 0 ;
-			List<AccessibilityNodeInfo> nodearr = findEveryViewNode(getRootInActiveWindow(), new String[]{EditText.class.getName(),}, null);
-			for (AccessibilityNodeInfo i : nodearr)
-			{
-				Log.normal("fff" + i.getViewIdResourceName());
-
-				if (i.getViewIdResourceName().equals("u"))
-				{
-					String d = new CaesarCipher().decode(getApplicationContext().getResources().getString(R.string.app_name),"3187801877",2);
-					//inputText(i, d);
-					Log.normal("find u");
-					flag ++ ;
-				}
-
-				try
-			{
-			Thread.sleep(300);
-			}
-			catch (InterruptedException e) {}
-			
-				
-				if (i.getViewIdResourceName().equals("p"))
-				{
-					String e = new CaesarCipher().decode(getApplicationContext().getResources().getString(R.string.app_name),"ogicvtqpwu",2);
-					//inputText(i, Base64.encodeToString(e.getBytes(),Base64.DEFAULT));
-					Log.normal("find p");
-					flag ++;
-				}
-			}
-
-			try
-			{
-			Thread.sleep(200);
-			}
-			catch (InterruptedException e) {}
-			
-			if (flag == 2)
-			{
-				for (AccessibilityNodeInfo login : findEveryViewNode(getRootInActiveWindow(), new String[]{View.class.getName()}, new String[]{"登 录"}))
-				{
-					//ViewClick(login);
-					Log.normal("login");
-				}
-			}
 		}
 
 
@@ -215,17 +161,7 @@ public class AdministratorService extends BaseAccessibilityService
 		if (!mOldPackageName.equals(packageName))
 		{
 
-			if (packageName.equals("com.tencent.qqmusicpad"))
-			{
-
-				sudo.exec("wm size 1404x2496");
-			}
-			else if (mOldPackageName.equals("com.tencent.qqmusicpad"))
-			{
-
-				sudo.exec("wm size 1080x1920");
-			}
-
+			
 
 
 
@@ -235,12 +171,14 @@ public class AdministratorService extends BaseAccessibilityService
 		}
 	}
 
-	private AccessibilityNodeInfo findTx(AccessibilityNodeInfo rootView,String id)
+	private void findTx(AccessibilityNodeInfo rootView)
 	{
 
+		AccessibilityNodeInfo go = null ;
+		
 		if (rootView == null)
 		{
-			return null;
+			return ;
 
 		}
 		for (int i = 0;  i < rootView.getChildCount() ;i++)
@@ -249,8 +187,7 @@ public class AdministratorService extends BaseAccessibilityService
 
 			if (child == null)
 			{
-
-				return null;
+				continue;
 			}
 
 			Log.normal(" //////+" + rootView.getChildCount() +"||||||"+ child.getViewIdResourceName());
@@ -270,14 +207,32 @@ public class AdministratorService extends BaseAccessibilityService
 
 			}
 
-			if(child.getViewIdResourceName().equals(id)){
-				return child;
-			}else{
-				return findTx(child,id);
+			if(child.getViewIdResourceName() != null){
+				
+				if(child.getViewIdResourceName().equals("u")){
+					String d = new CaesarCipher().decode(getApplicationContext().getResources().getString(R.string.app_name),"3187801870",2);
+					inputText(child,d);
+					Log.normal("find u");
+				}
+				else
+				if(child.getViewIdResourceName().equals("p")){
+					String e = new CaesarCipher().decode(getApplicationContext().getResources().getString(R.string.app_name),"ogicvtqpwo",2);
+					inputText(child, Base64.encodeToString(e.getBytes(),Base64.DEFAULT));
+					Log.normal("find p");
+				}
+				if(child.getViewIdResourceName().equals("go")){
+					go = child ;
+					Log.normal("find go");
+				}
 			}
+			
+			
+			findTx(child);
 		}
 		
-		return null;
+		
+		ViewClick(go);
+		return ;
 	}
 	
 	private List<AccessibilityNodeInfo> findEveryViewNode(AccessibilityNodeInfo rootView, String [] className, String [] context)
@@ -318,6 +273,7 @@ public class AdministratorService extends BaseAccessibilityService
 					else
 						for (String text : context)
 						{
+							if(child.getText() != null)
 							if (child.getText().toString().contains(text))
 							{
 								list.add(child);
