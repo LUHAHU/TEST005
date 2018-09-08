@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical"
+	android:padding="12dp"
+	android:background="@drawable/wallpaper">
+
+	<RelativeLayout
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:background="@drawable/wallpaper"
+		android:padding="15dp"
+		android:layout_marginTop="50dp">
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:layout_width="wrap_content"
+			android:text="27°"
+			android:textSize="100sp"
+			android:id="@+id/weather_temperature"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="阴"
+			android:layout_toRightOf="@id/weather_temperature"
+			android:textSize="20sp"
+			android:layout_alignBaseline="@id/weather_temperature"
+			android:id="@+id/weather_weather"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="wrap_content"
+			android:text="Medium Text"
+			android:layout_below="@id/weather_temperature"
+			android:id="@+id/weather_wind"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="wrap_content"
+			android:text="Medium Text"
+			android:layout_toRightOf="@id/weather_wind"
+			android:layout_below="@id/weather_temperature"
+			android:layout_alignParentRight="true"
+			android:id="@+id/weather_hum"/>
+
+	</RelativeLayout>
+
+</RelativeLayout>
+

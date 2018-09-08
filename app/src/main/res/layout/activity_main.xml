@@ -8,35 +8,8 @@
 	android:orientation="vertical"
 	tools:context="com.megatronus.ui.MainActivity">
 
-	<android.support.v7.widget.Toolbar
-		android:id="@+id/tb_header"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:background="?attr/colorPrimary"
-		android:minHeight="?attr/actionBarSize"
-		app:navigationIcon="@drawable/ic_launcher"
-		app:titleMarginStart="30dp"
-		android:elevation="10dp">
-
-		<RelativeLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:paddingLeft="10dp"
-			android:paddingRight="10dp">
-
-			<TextView
-				android:id="@+id/main_setting"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_alignParentEnd="true"
-				android:layout_alignParentTop="true"
-				android:text="OPEN"
-				android:textColor="@color/main_gold"
-				android:textSize="24sp"/>
-
-		</RelativeLayout>
-
-	</android.support.v7.widget.Toolbar>
+	<include
+		layout="@layout/normaltoolbar"/>
 
 	<Button
 		android:layout_width="wrap_content"
