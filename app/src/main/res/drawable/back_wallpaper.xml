@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:opacity="opaque">
+
+    <item>
+		<bitmap
+			android:src="@drawable/wallpaper"
+			android:gravity="center"/>
+    </item>
+
+
+	<item>
+        <shape>
+			<gradient android:angle="0"
+				android:startColor="#5027844F"
+				android:centerColor="#5027844F"
+				android:endColor="#5027844F"
+				android:useLevel="false"
+				android:type="sweep"
+			/>
+        </shape>
+    </item>
+
+</layer-list>
+

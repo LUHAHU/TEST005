@@ -5,20 +5,22 @@
 	android:layout_height="fill_parent"
 	android:orientation="vertical"
 	android:padding="12dp"
-	android:background="@drawable/wallpaper">
+	android:background="@drawable/back_wallpaper">
 
 	<RelativeLayout
-		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
-		android:background="@drawable/wallpaper"
+		android:layout_height="200dp"
+		android:layout_width="match_parent"
 		android:padding="15dp"
-		android:layout_marginTop="50dp">
+		android:layout_marginTop="40dp"
+		android:id="@+id/activityweatherRelativeLayout1"
+		android:scaleType="fitStart"
+		android:background="@drawable/wallpaper">
 
 		<TextView
 			android:layout_height="wrap_content"
 			android:textAppearance="?android:attr/textAppearanceLarge"
 			android:layout_width="wrap_content"
-			android:text="27°"
+			android:text="30°"
 			android:textSize="100sp"
 			android:id="@+id/weather_temperature"/>
 
@@ -47,9 +49,28 @@
 			android:layout_toRightOf="@id/weather_wind"
 			android:layout_below="@id/weather_temperature"
 			android:layout_alignParentRight="true"
-			android:id="@+id/weather_hum"/>
+			android:id="@+id/weather_hum"
+			android:layout_marginLeft="15dp"/>
 
 	</RelativeLayout>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="降水概率"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:layout_below="@id/activityweatherRelativeLayout1"
+		android:id="@+id/weather_msg"/>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text=""
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentLeft="true"
+		android:gravity="center"
+		android:id="@+id/weather_update"/>
 
 </RelativeLayout>
 
