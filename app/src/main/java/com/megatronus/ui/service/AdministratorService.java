@@ -1,33 +1,33 @@
 package com.megatronus.ui.service;
 
+import android.accessibilityservice.AccessibilityServiceInfo;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
-import com.megatronus.ui.common.BaseAccessibilityService;
-import com.megatronus.ui.utils.CaptureMm;
-import com.megatronus.ui.utils.NotifyManager;
-import com.megatronus.ui.utils.sudo;
-import java.util.List;
 import com.megatronus.ui.EditBillActivity;
 import com.megatronus.ui.MyApp;
-import android.webkit.WebView;
-import android.accessibilityservice.AccessibilityServiceInfo;
-import java.util.ArrayList;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.util.Base64;
-import com.megatronus.ui.utils.CaesarCipher;
 import com.megatronus.ui.R;
+import com.megatronus.ui.common.BaseAccessibilityService;
+import com.megatronus.ui.utils.CaesarCipher;
+import com.megatronus.ui.utils.CaptureMm;
 import com.megatronus.ui.utils.Log;
+import com.megatronus.ui.utils.NotifyManager;
+import com.megatronus.weather.Conn;
+import com.megatronus.weather.Weather;
+import com.megatronus.weather.bean.Forecast;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class AdministratorService extends BaseAccessibilityService
 {
 	public boolean isCapture = false;
 	public boolean isOpenEdit = false ;
+	public boolean isShowForecast = false; 
 
 	private CharSequence mOldPackageName = "Initial value";
 	private CaptureMm Mm = null;
@@ -118,6 +118,29 @@ public class AdministratorService extends BaseAccessibilityService
 
 		if (packageName.equals("com.android.systemui"))
 		{
+			
+			if((!isShowForecast) && new Date().getHours() >= 8 ){
+				new Weather<Forecast>(Forecast.class, new  Weather.CallBack<Forecast>(){
+
+						@Override
+						public void result(Forecast json)
+						{
+
+							Forecast.HeWeather.Daily_Forecast Df = json.getHeWeather6().daily_forecast.get(0);
+							StringBuffer sb = new StringBuffer();
+							sb.append("风向: " + Df.wind_dir + " 风力: <" +Df.wind_sc +">");
+							sb.append(" 相对湿度: " + Df.hum);
+							sb.append(" 降水概率: " +Df.pop + "% 最低温度: "+Df.tmp_min + " 预报日期: " + Df.date );
+
+							sb.append("更新时间\n"+json.getHeWeather6().update.loc);
+							
+							
+							nm.CreateNotify(getApplicationContext(), "天气状况:" + Df.cond_txt_d + "    最高温度: " +Df.tmp_max + "°",sb.toString());
+							
+							isShowForecast = true;
+						}
+					}).execute(Conn.FIRECAST);
+			}
 			return;
 		}
 
